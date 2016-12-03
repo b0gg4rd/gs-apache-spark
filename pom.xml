@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>net.coatli.spark</groupId>
+  <artifactId>gs-apache-spark</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Getting Started Apache Spark</name>
+  <description>An simple getting started Apache Spark application.</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+    <maven>3.3.9</maven>
+ 
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.jdk.source>${java.version}</project.build.jdk.source>
+    <project.build.jdk.target>${java.version}</project.build.jdk.target>
+
+    <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+    <maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
+    <maven.shade.plugin.version>2.1</maven.shade.plugin.version>
+    <exec.maven.plugin.version>1.5.0</exec.maven.plugin.version>
+
+    <spark.core.version>2.0.2</spark.core.version>
+    <junit.version>4.12</junit.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.spark</groupId>
+      <artifactId>spark-core_2.11</artifactId>
+      <version>${spark.core.version}</version>
+    </dependency>
+
+    <!-- Test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>gs-apache-spark</finalName>
+    
+    <!-- Defining the plugin stack -->
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <source>${project.build.jdk.source}</source>
+          <target>${project.build.jdk.target}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec.maven.plugin.version}</version>
+        <configuration>
+          <executable>spark-submit</executable>
+          <arguments>
+            <argument>--class</argument>
+            <argument>net.coatli.spark.GsSparkApplication</argument>
+            <argument>--master</argument>
+            <argument>local[4]</argument>
+            <argument>target/gs-apache-spark.jar</argument>
+          </arguments>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+
