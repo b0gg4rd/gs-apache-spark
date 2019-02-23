@@ -1,10 +1,11 @@
+### Git ###
+*.orig
+
+### Java ###
+*.jar
+
 ### Apache Maven ###
 target/
-
-### Maven Wrapper ###
-.mvn/
-mvnw
-mvnw.cmd
 
 ### STS ###
 .apt_generated
@@ -29,5 +30,11 @@ nbdist/
 .nb-gradle/
 
 ### VIM ###
+*~
 *.swp
 *.swo
+
+### General ###
+*.log
+*.lock*
+*.DS_Store

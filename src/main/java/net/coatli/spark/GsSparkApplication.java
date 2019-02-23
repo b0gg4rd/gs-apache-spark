@@ -1,36 +1,26 @@
 package net.coatli.spark;
 
-import org.apache.spark.SparkConf;
-import org.apache.spark.api.java.JavaRDD;
-import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.api.java.function.Function;
+import org.apache.spark.sql.Dataset;
+import org.apache.spark.sql.SparkSession;
 
 public class GsSparkApplication {
 
-  public static void main( String[] args ) {
-    String logFile = "./src/main/resources/README.md";
+  public static void main( final String[] args ) {
 
-    JavaSparkContext javaSparkContext = new JavaSparkContext(
-        new SparkConf().setAppName("GS Application"));
+    final String logFile = "./src/main/resources/README.md";
 
-    JavaRDD<String> logData = javaSparkContext.textFile(logFile).cache();
+    final SparkSession spark = SparkSession.builder().appName("Simple Application").getOrCreate();
 
-    long numAs = logData.filter(new Function<String, Boolean>() {
-      public Boolean call(String s) {
-        return s.contains("a");
-      }
-    }).count();
+    final Dataset<String> logData = spark.read().textFile(logFile).cache();
 
-    long numBs = logData.filter(new Function<String, Boolean>() {
-      public Boolean call(String s) {
-        return s.contains("b");
-      }
-    }).count();
+    final long numAs = logData.filter(s -> s.contains("a")).count();
 
-    System.out.println("Lines with a: " + numAs
-        + ", lines with b: " + numBs);
+    final long numBs = logData.filter(s -> s.contains("b")).count();
 
-    javaSparkContext.stop();
+    System.out.println("Lines with a: " + numAs + ", lines with b: " + numBs);
+
+    spark.stop();
+
   }
 
 }
