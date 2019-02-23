@@ -11,5 +11,7 @@ This is the [self-contained application](https://spark.apache.org/docs/latest/qu
 
 For test the example use:
 
-`$ ./mvnw clean package exec:exec`
+```bash
+$ cp input /tmp && ./mvnw clean package exec:exec
+```
 
