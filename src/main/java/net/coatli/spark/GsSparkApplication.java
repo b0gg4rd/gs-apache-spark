@@ -7,9 +7,9 @@ public class GsSparkApplication {
 
   public static void main( final String[] args ) {
 
-    final String logFile = "./src/main/resources/README.md";
+    final String logFile = "/tmp/input.txt";
 
-    final SparkSession spark = SparkSession.builder().appName("Simple Application").getOrCreate();
+    final SparkSession spark = SparkSession.builder().appName("a-and-b-counter").getOrCreate();
 
     final Dataset<String> logData = spark.read().textFile(logFile).cache();
 
