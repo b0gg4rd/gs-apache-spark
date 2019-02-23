@@ -13,7 +13,7 @@
   <packaging>jar</packaging>
 
   <name>Getting Started Apache Spark</name>
-  <description>An simple getting started Apache Spark application.</description>
+  <description>This is the self-contained application example for Apache Spark quick start</description>
 
   <properties>
     <java.version>1.8</java.version>
